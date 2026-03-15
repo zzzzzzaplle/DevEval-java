@@ -31,9 +31,11 @@ Below is a text-based representation of the file tree for the Actor Relationship
 └── README.md
 ```
 
+<!-- 项目通过两种方式产生和保存结果 一个是控制台输出，一个是序列化文件-->
 Output:
 - The project relies on console output and serialized files (`actorGraph.ser` and `actors_list.txt`) for its functionality.
 
+<!-- 该项目需要顺序执行三个步骤,步骤1.创建图，也就是runGraphCreation，步骤二提取演员列表，步骤三是查找任务两个演员之间的最短路径 -->
 Examples:
 - To execute the project, the user should run the Java classes in the specified order after compiling them with Gradle and setting `TMDB_API_KEY` environmental varible. For example, run `run_ActorRelationshipGame.sh`:
     ```bash
@@ -42,15 +44,19 @@ Examples:
     ./gradlew runGamePlayInterface -PgraphPath="./src/main/java/Actor_relationship_game/actorGraph.ser" -PactorPath="./src/main/java/Actor_relationship_game/actors_list.txt" -PfilePath="./src/main/java/Actor_relationship_game/actor_connection_results.txt"
     ```
 
+
 `.gitignore:`
     - Ignore compiled files, serialized objects, and other non-source files (like IDE-specific configurations).
 
+<!-- 存放所有java代码源文件 -->
 `src/main/java/Actor_relationship_game`:
     - This directory contains all the Java classes required for the project.
 
+<!-- 存放单元测试代码，验证每个类的功能 -->
 `src/test/java`:
     - This directory contains the test cases for the Java classes. It should include unit tests for validating the functionalities of each class.
 
+<!-- 项目配置文件，需要那些依赖 -->
 `build.gradle`:
     - This file contains the build configuration for Gradle, specifying the dependencies and plugins required for the project.
 

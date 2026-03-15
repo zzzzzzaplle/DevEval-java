@@ -146,3 +146,19 @@ public class ActorRelationshipAcceptanceTest {
     }
 
 }
+/*
+把代码改成“用 ecore+EMF 生成骨架 + LLM 填方法体”之后：
+仓库里真正生效的就是你这“一份新实现”；
+ActorRelationshipAcceptanceTest 的逻辑不变，还是：
+用你当前这份代码跑一遍 → 生成 reference 那三类文件；
+再用同一份代码再跑一遍 → 生成 test 那三类文件；
+检查两次结果是否满足：
+Graph 文件：两份 .ser 完全相同；
+List 文件：test 至少包含 reference 里的所有行；
+Connection 文件：test 至少包含 reference 里的所有 "Connection Number ..." 行。
+所以验收测试在做的是：
+内部一致性 / 稳定性 / 功能行为是否自洽，
+而不是“和作者当年的某个输出文件一模一样”。
+只要你用自己的方法生成的代码，满足这些对比条件（再加上单元测试都通过），
+就算在这套 benchmark 的验收逻辑下是“OK”的实现。
+ */

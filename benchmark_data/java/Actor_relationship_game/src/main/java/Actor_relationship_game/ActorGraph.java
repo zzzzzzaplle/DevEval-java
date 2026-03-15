@@ -37,6 +37,9 @@ public class ActorGraph implements Serializable {
     // Methods
     public void addActor(Actor actor) {
         actors.putIfAbsent(actor.getId(), actor);
+
+        // 将演员名字和id映射关系保存到nameToIdMap和idToNameMap中
+        // 第一个是用于根据名字查找id，第二个是用于根据id查找名字
         nameToIdMap.put(actor.getName(), actor.getId());
         idToNameMap.put(actor.getId(), actor.getName());
     }
@@ -63,6 +66,8 @@ public class ActorGraph implements Serializable {
      */
     public void addActorToMovie(String actorId, String movieId) {
         if (actors.containsKey(actorId) && movies.containsKey(movieId)) {
+            // 先检查演员和电影是否存在
+            // 如果存在，则将电影id添加到演员的movieIds中，将演员id添加到电影的actorIds中
             Actor actor = actors.get(actorId);
             Movie movie = movies.get(movieId);
             actor.getMovieIds().add(movieId);
@@ -74,6 +79,10 @@ public class ActorGraph implements Serializable {
      * Implements BFS to find the shortest path from startActorId to endActorId.
      * It uses a queue for BFS and a map (visited) to track the visited actors and their previous actor in the path.
      */
+    // 查找两个演员之间的最短路径
+    // 使用BFS算法，从startActorId开始，沿着visited和previousMovie的映射关系，构建路径
+    // 路径的每个元素是演员名字和电影名字的映射
+    // 路径的第一个元素是startActorId，最后一个元素是endActorId
     public List<Map.Entry<String, String>> findConnectionWithPath(String startActorId, String endActorId) {
         if (!actors.containsKey(startActorId) || !actors.containsKey(endActorId)) {
             return Collections.emptyList();
@@ -111,6 +120,10 @@ public class ActorGraph implements Serializable {
     /**
      * Helper method to construct the path from the endActorId back to the startActorId using the visited map.
      */
+    // 构建路径的辅助方法
+    // 从endActorId开始，沿着visited和previousMovie的映射关系，构建路径
+    // 路径的每个元素是演员名字和电影名字的映射
+    // 路径的第一个元素是endActorId，最后一个元素是startActorId
     private List<Map.Entry<String, String>> buildPath(Map<String, String> visited, Map<String, String> previousMovie, String endActorId) {
         LinkedList<Map.Entry<String, String>> path = new LinkedList<>();
         String current = endActorId;
