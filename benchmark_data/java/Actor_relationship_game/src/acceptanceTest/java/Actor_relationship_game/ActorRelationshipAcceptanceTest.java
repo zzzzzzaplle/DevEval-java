@@ -41,6 +41,7 @@ public class ActorRelationshipAcceptanceTest {
         new File(testGraphPath).delete();
         new File(testActorPath).delete();
         new File(testFilePath).delete();
+
     }
 
     @Test

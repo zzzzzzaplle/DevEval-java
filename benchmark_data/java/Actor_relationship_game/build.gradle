@@ -18,6 +18,10 @@ repositories {
     maven { url 'https://maven.aliyun.com/repository/central' }
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 sourceSets {
     acceptanceTest {
         java {
@@ -27,6 +31,7 @@ sourceSets {
         }
         resources.srcDir file('src/acceptanceTest/resources')
     }
+
 }
 
 configurations {
@@ -48,6 +53,7 @@ dependencies {
 test {
     useJUnitPlatform()
     finalizedBy 'jacocoTestReport'
+    jvmArgs '-Dhttps.proxyHost=127.0.0.1', '-Dhttps.proxyPort=33210'
 }
 
 jacocoTestReport {
@@ -63,8 +69,15 @@ task acceptanceTest(type: Test) {
     classpath = sourceSets.acceptanceTest.runtimeClasspath
     outputs.upToDateWhen { false }
     useJUnitPlatform()
+    jvmArgs = tasks.test.jvmArgs // 继承 test 任务的 JVM 参数
+}
+tasks.withType(JavaExec) {
+    jvmArgs '-Dfile.encoding=UTF-8'
 }
 
+tasks.withType(Test) {
+    jvmArgs '-Dfile.encoding=UTF-8'
+}
 task runGraphCreation(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'Actor_relationship_game.GraphCreation'

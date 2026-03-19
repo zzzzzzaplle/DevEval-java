@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class TMDBApi {
     private final OkHttpClient client;
-    private final String apiKey = System.getenv("TMDB_API_KEY"); // get API Key from environmental variable
+    private final String apiKey = "4a09637f4926928944b5d9cadad6713f"; // get API Key from environmental variable
 
     public TMDBApi() {
         this.client = new OkHttpClient();
